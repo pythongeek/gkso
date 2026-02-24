@@ -59,27 +59,6 @@ function gkso_uninstall() {
             [ '%s' ]
         );
     }
-
-    // Delete internal linking suggestions meta
-    $wpdb->delete( $wpdb->postmeta, [ 'meta_key' => '_gkso_link_suggestions' ], [ '%s' ] );
-
-    // Drop internal linking index table
-    $link_table = $wpdb->prefix . 'gkso_link_index';
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-    $wpdb->query( "DROP TABLE IF EXISTS {$link_table}" );
-
-    // Delete internal linking options
-    $link_options = [
-        'gkso_link_algorithm_settings',
-        'gkso_link_user_instructions',
-        'gkso_link_pillar_pages',
-        'gkso_link_pillar_page_ids',
-        'gkso_link_index_db_version',
-        'gkso_link_max_per_post',
-    ];
-    foreach ( $link_options as $opt ) {
-        delete_option( $opt );
-    }
     
     // Clean up transients
     $wpdb->query(
